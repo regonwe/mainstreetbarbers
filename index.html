@@ -1,1 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Street Barbers · Hummelstown, PA</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Times New Roman', Times, serif; }
+        body { background: #f4ede4; color: #2e2a28; line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        
+        /* navigation */
+        nav { background: #2c1e15; padding: 1rem 0; border-bottom: 3px solid #b89b7b; position: sticky; top: 0; z-index: 100; }
+        .nav-links { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; }
+        .nav-links a { color: #e8d9cc; text-decoration: none; font-size: 1.3rem; letter-spacing: 1px; padding: 0.5rem 0; border-bottom: 2px solid transparent; transition: 0.2s; }
+        .nav-links a:hover { border-bottom-color: #b89b7b; color: #b89b7b; }
+        
+        /* header */
+        header { background: #3b2b1f; color: #e8d9cc; padding: 2.5rem 0; text-align: center; border-bottom: 4px solid #b89b7b; }
+        h1 { font-size: 4rem; margin-bottom: 0.5rem; letter-spacing: 3px; font-weight: 700; text-transform: uppercase; text-shadow: 2px 2px 0px #1f1510; }
+        .owner { font-size: 1.4rem; font-style: italic; letter-spacing: 1px; margin-bottom: 1rem; color: #d4bc9a; }
+        .established { font-size: 1.2rem; border-top: 1px solid #b89b7b; border-bottom: 1px solid #b89b7b; display: inline-block; padding: 0.5rem 2rem; }
+        
+        /* contact bar */
+        .contact-bar { background: #2c1e15; color: #e8d9cc; padding: 1.2rem 0; text-align: center; font-size: 1.3rem; border-bottom: 2px solid #b89b7b; }
+        .contact-bar a { color: #d4bc9a; text-decoration: none; border-bottom: 1px dotted #d4bc9a; }
+        
+        /* page sections */
+        .page { display: none; }
+        .active-page { display: block; }
+        
+        /* menu styling */
+        .section-title { font-size: 2.5rem; margin: 2.5rem 0 1.5rem 0; border-left: 6px solid #7a4d2e; padding-left: 1.5rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #2e2a28; }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin: 2rem 0; }
+        .menu-card { background: #fff9f2; padding: 2rem; box-shadow: 8px 8px 0px rgba(0,0,0,0.1); border: 2px solid #b89b7b; }
+        .menu-card h3 { color: #7a4d2e; font-size: 2rem; margin-bottom: 1rem; border-bottom: 2px solid #b89b7b; padding-bottom: 0.5rem; font-weight: 700; }
+        .menu-item { display: flex; justify-content: space-between; margin: 0.75rem 0; font-size: 1.2rem; border-bottom: 1px dotted #b89b7b; padding-bottom: 0.5rem; }
+        .price { font-weight: 700; color: #7a4d2e; font-size: 1.3rem; }
+        .badge { background: #b89b7b; color: #1e1e1e; padding: 0.3rem 1.5rem; font-weight: 700; display: inline-block; margin: 0.5rem 0; font-size: 1.1rem; border: 2px solid #7a4d2e; }
+        
+        /* buttons */
+        .btn-row { display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; margin: 2.5rem 0; }
+        .btn { background: #7a4d2e; color: #f4ede4; padding: 1rem 2.5rem; text-decoration: none; font-weight: 700; font-size: 1.3rem; display: inline-flex; align-items: center; gap: 0.8rem; border: 2px solid #b89b7b; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn:hover { background: #5e3b23; border-color: #f4ede4; }
+        .btn-secondary { background: #2c1e15; }
+        
+        /* reviews */
+        .reviews { background: #fff9f2; padding: 2.5rem; margin: 3rem 0; text-align: center; border: 3px solid #7a4d2e; box-shadow: 10px 10px 0px rgba(0,0,0,0.05); }
+        .stars { color: #b89b7b; font-size: 2.5rem; letter-spacing: 8px; }
+        .review-count { font-size: 1.4rem; color: #2e2a28; font-style: italic; }
+        
+        /* footer */
+        footer { background: #2c1e15; color: #e8d9cc; padding: 2.5rem 0; text-align: center; margin-top: 4rem; border-top: 6px solid #7a4d2e; font-size: 1.1rem; }
+        
+        /* images */
+        .hero-image { width: 100%; height: 500px; overflow: hidden; margin-bottom: 2rem; border: 6px solid #b89b7b; cursor: pointer; box-shadow: 10px 10px 0px rgba(0,0,0,0.1); }
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+        .gallery-item { border: 4px solid #b89b7b; cursor: pointer; box-shadow: 6px 6px 0px rgba(0,0,0,0.1); }
+        .gallery-item img { width: 100%; height: 300px; object-fit: cover; display: block; }
+        
+        @media (max-width: 600px) { h1 { font-size: 3rem; } .nav-links { gap: 1.5rem; } }
+    </style>
+</head>
+<body>
 
+<header>
+    <div class="container">
+        <h1>MAIN STREET BARBERS</h1>
+        <p class="owner">RYAN PAINE · OWNER & BARBER</p>
+        <p class="established">EST. 2012 · HUMMELSTOWN</p>
+    </div>
+</header>
+
+<div class="contact-bar">
+    <div class="container">
+        49 E MAIN ST, HUMMELSTOWN, PA 17036 &nbsp; | &nbsp; <a href="tel:+17174974244">(717) 497-4244</a> &nbsp; | &nbsp; <a href="mailto:rpaine79@yahoo.com">RPAINE79@YAHOO.COM</a>
+    </div>
+</div>
+
+<!-- Navigation -->
+<nav>
+    <div class="container">
+        <div class="nav-links">
+            <a href="#" onclick="showPage('home'); return false;">HOME</a>
+            <a href="#" onclick="showPage('services'); return false;">SERVICES</a>
+            <a href="#" onclick="showPage('gallery'); return false;">GALLERY</a>
+            <a href="#" onclick="showPage('contact'); return false;">CONTACT</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="home" class="page active-page">
+    <div class="container">
+        
+        <!-- Hero Image (Ryan cutting hair) -->
+        <div class="hero-image" onclick="window.open('https://raw.githubusercontent.com/regonwe/Givv/main/IMG_8186.PNG', '_blank')">
+            <img src="https://raw.githubusercontent.com/regonwe/Givv/main/IMG_8186.PNG" alt="Ryan Paine cutting hair at Main Street Barbers">
+        </div>
+        
+        <!-- Welcome Text -->
+        <div style="text-align: center; margin: 3rem 0; padding: 2rem; background: #fff9f2; border-left: 8px solid #7a4d2e; border-right: 8px solid #7a4d2e;">
+            <p style="font-size: 1.6rem; font-style: italic;">Traditional barbering · Precision cuts · Old school service</p>
+            <p style="font-size: 1.2rem; margin-top: 1rem;">Single chair shop with good music and atmosphere. Walk-ins welcome.</p>
+        </div>
+        
+        <!-- Call to Action Buttons -->
+        <div class="btn-row">
+            <a href="tel:+17174974244" class="btn">CALL FOR APPOINTMENT</a>
+            <a href="#" onclick="showPage('services'); return false;" class="btn btn-secondary">VIEW SERVICES</a>
+        </div>
+        
+        <!-- Reviews -->
+        <div class="reviews">
+            <div class="stars">★★★★★</div>
+            <p style="font-size: 2.5rem; font-weight: 700;">4.8 STARS</p>
+            <p class="review-count">Based on 39 Google reviews</p>
+            <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <p style="font-style: italic;">"Great service and rates" — John Y.</p>
+                <p style="font-style: italic;">"A single chair shop with good music and atmosphere" — Jordon D.</p>
+                <p style="font-style: italic;">"I would highly recommend this place" — cumminsturbo98</p>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<!-- SERVICES PAGE -->
+<div id="services" class="page">
+    <div class="container">
+        
+        <h2 class="section-title">Services & Pricing</h2>
+        
+        <div class="menu-grid">
+            <div class="menu-card">
+                <h3>HAIRCUT</h3>
+                <p>Precision cut · Scissor or clipper · Hot towel finish</p>
+                <div class="menu-item"><span></span> <span class="price">$20</span></div>
+            </div>
+            <div class="menu-card">
+                <h3>BEARD TRIM</h3>
+                <p>Shape up · Hot towel · Oil & balm</p>
+                <div class="menu-item"><span></span> <span class="price">$15</span></div>
+            </div>
+            <div class="menu-card">
+                <h3>HAIRCUT + BEARD</h3>
+                <p>Complete grooming package</p>
+                <div class="menu-item"><span></span> <span class="price">$30</span></div>
+            </div>
+            <div class="menu-card">
+                <h3>KIDS CUT</h3>
+                <p>Ages 12 & under</p>
+                <div class="menu-item"><span></span> <span class="price">$14</span></div>
+            </div>
+            <div class="menu-card">
+                <h3>SENIOR CUT</h3>
+                <p>65+</p>
+                <div class="menu-item"><span></span> <span class="price">$12</span></div>
+            </div>
+            <div class="menu-card">
+                <h3>SHAPE UP</h3>
+                <p>Neckline · Edges · Quick refresh</p>
+                <div class="menu-item"><span></span> <span class="price">$7</span></div>
+            </div>
+            <div class="menu-card">
+                <h3>HOT LATHER FACE SHAVE</h3>
+                <p>Straight razor · Hot towels · Aftershave</p>
+                <div class="menu-item"><span></span> <span class="price">$20</span></div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 3rem; padding: 2rem; background: #2c1e15; color: #e8d9cc; text-align: center;">
+            <p style="font-size: 1.5rem;">✂️ Walk-ins welcome · Appointments recommended</p>
+        </div>
+        
+    </div>
+</div>
+
+<!-- GALLERY PAGE -->
+<div id="gallery" class="page">
+    <div class="container">
+        
+        <h2 class="section-title">The Shop</h2>
+        
+        <div class="gallery-grid">
+            <div class="gallery-item" onclick="window.open('https://raw.githubusercontent.com/regonwe/Givv/main/IMG_8186.PNG', '_blank')">
+                <img src="https://raw.githubusercontent.com/regonwe/Givv/main/IMG_8186.PNG" alt="Ryan cutting hair">
+            </div>
+            <!-- Placeholder for more photos - add more IMG files as you get them -->
+            <div class="gallery-item" style="background: #2c1e15; color: #e8d9cc; display: flex; align-items: center; justify-content: center; height: 300px;">
+                <p style="font-size: 1.3rem;">More photos coming soon</p>
+            </div>
+        </div>
+        
+        <p style="text-align: center; margin-top: 2rem; font-style: italic;">Follow @mainstreetbarbers for latest cuts</p>
+        
+    </div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div id="contact" class="page">
+    <div class="container">
+        
+        <h2 class="section-title">Hours & Location</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin: 2rem 0;">
+            <div>
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">HOURS</h3>
+                <p style="font-size: 1.3rem;">Monday · 2pm – 6pm</p>
+                <p style="font-size: 1.3rem;">Tuesday – Friday · 9am – 6pm</p>
+                <p style="font-size: 1.3rem;">Saturday · 8am – 2pm</p>
+                <p style="font-size: 1.3rem;">Sunday · Closed</p>
+                
+                <div style="margin-top: 2rem;">
+                    <p><strong>Email:</strong> <a href="mailto:rpaine79@yahoo.com" style="color: #7a4d2e;">rpaine79@yahoo.com</a></p>
+                    <p><strong>Phone:</strong> <a href="tel:+17174974244" style="color: #7a4d2e;">(717) 497-4244</a></p>
+                </div>
+            </div>
+            
+            <div>
+                <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">LOCATION</h3>
+                <p style="font-size: 1.3rem;">49 E Main St</p>
+                <p style="font-size: 1.3rem;">Hummelstown, PA 17036</p>
+                
+                <div style="margin-top: 2rem;">
+                    <a href="https://maps.google.com/?q=49+E+Main+St+Hummelstown+PA+17036" target="_blank" class="btn" style="display: inline-block;">GET DIRECTIONS</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Simple Map Placeholder -->
+        <div style="width: 100%; height: 300px; background: #d4bc9a; margin-top: 2rem; border: 4px solid #7a4d2e; display: flex; align-items: center; justify-content: center;">
+            <p style="font-size: 1.3rem; color: #2c1e15;">49 E Main St, Hummelstown, PA 17036</p>
+        </div>
+        
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p style="font-size: 1.3rem;">MAIN STREET BARBERS</p>
+        <p style="font-size: 1.1rem;">49 E Main St, Hummelstown, PA 17036 · (717) 497-4244</p>
+        <p style="margin-top: 1rem;">Monday 2–6pm · Tuesday–Friday 9am–6pm · Saturday 8am–2pm</p>
+        <p style="margin-top: 1.5rem; color: #b89b7b; border-top: 2px solid #b89b7b; padding-top: 1.5rem;">Website by Givv · Traditional barbershop · Established 2012</p>
+    </div>
+</footer>
+
+<script>
+    function showPage(pageId) {
+        // Hide all pages
+        document.getElementById('home').classList.remove('active-page');
+        document.getElementById('services').classList.remove('active-page');
+        document.getElementById('gallery').classList.remove('active-page');
+        document.getElementById('contact').classList.remove('active-page');
+        
+        // Show selected page
+        document.getElementById(pageId).classList.add('active-page');
+        
+        // Scroll to top
+        window.scrollTo(0, 0);
+    }
+</script>
+
+</body>
+</html>
